@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import { createDirectStore } from "direct-vuex"
+import apiConfigurationModule from "./modules/apiConfigurationModule"
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ const {
   moduleGetterContext
 } = createDirectStore({
   modules: {
+    apiConfiguration: apiConfigurationModule,
   },
   plugins: [createPersistedState()],
   strict: process.env.NODE_ENV !== "production"

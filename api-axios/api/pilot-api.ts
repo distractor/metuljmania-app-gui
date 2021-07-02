@@ -21,6 +21,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { BasicInfoDTO } from '../model';
+// @ts-ignore
 import { EditPilotDTO } from '../model';
 // @ts-ignore
 import { NewPilotDTO } from '../model';
@@ -32,6 +34,35 @@ import { PilotDTO } from '../model';
  */
 export const PilotApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotGetPilotsBasicInfoGet: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Pilot/GetPilotsBasicInfo`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @param {number} id 
@@ -147,6 +178,15 @@ export const PilotApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPilotGetPilotsBasicInfoGet(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BasicInfoDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotGetPilotsBasicInfoGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -188,6 +228,14 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotGetPilotsBasicInfoGet(options?: any): AxiosPromise<Array<BasicInfoDTO>> {
+            return localVarFp.apiPilotGetPilotsBasicInfoGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -224,6 +272,16 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class PilotApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PilotApi
+     */
+    public apiPilotGetPilotsBasicInfoGet(options?: any) {
+        return PilotApiFp(this.configuration).apiPilotGetPilotsBasicInfoGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {number} id 
