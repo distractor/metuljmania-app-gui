@@ -18,11 +18,12 @@
             <b-button variant="primary" href="/application">Get my application</b-button>
           </div>
         </li>
-        <li>Find your name and type in the password that was sent to you by email.</li>
+        <li>Find your name and type in the password that was sent to you by email to reveal personal information.</li>
         <li>Check and correct your data if necessary.</li>
+        <li>Submit and application form will be sent to your email.</li>
         <li>
           <div>
-            Once you submit, application form will be sent to your email. You can use your digital identity to sign it and upload it back using the button below.
+            You can use your digital identity to sign it and upload it back using the button below.
           </div>
           <div class="text">
             <b-button variant="primary" href="/upload">Upload application</b-button>

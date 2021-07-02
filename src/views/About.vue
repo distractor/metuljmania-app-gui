@@ -11,14 +11,14 @@
       <ul>
         <li>the registration office finds appropriate papers,</li>
         <li>each pilot checks and corrects his/hers data,</li>
-        <li>many times pilots forget wallets/licences/cards,</li>
-        <li>etc.</li>
+        <li>many times pilots forget wallets/licences/insurance cards,</li>
+        <li>...</li>
       </ul>
       It also quickly becomes messy when a lot of data is wrong.
     </div>
     <h4>Pandemic leftovers</h4>
     <div class="text">
-      With the current pandemic situation it is also not advised to keep a lot of people in a closed space.
+      With the current pandemic situation it is also still not advised to keep a lot of people in a closed space.
     </div>
     <h1>Solution</h1>
     <div class="text">
