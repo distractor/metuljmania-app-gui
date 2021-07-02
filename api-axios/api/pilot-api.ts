@@ -36,6 +36,45 @@ export const PilotApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @param {number} [id] 
+         * @param {string} [password] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotAuthenticatePilotGet: async (id?: number, password?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Pilot/AuthenticatePilot`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (password !== undefined) {
+                localVarQueryParameter['password'] = password;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -178,6 +217,17 @@ export const PilotApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {number} [id] 
+         * @param {string} [password] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PilotDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotAuthenticatePilotGet(id, password, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -228,6 +278,16 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @param {number} [id] 
+         * @param {string} [password] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any): AxiosPromise<PilotDTO> {
+            return localVarFp.apiPilotAuthenticatePilotGet(id, password, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -272,6 +332,18 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class PilotApi extends BaseAPI {
+    /**
+     * 
+     * @param {number} [id] 
+     * @param {string} [password] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PilotApi
+     */
+    public apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any) {
+        return PilotApiFp(this.configuration).apiPilotAuthenticatePilotGet(id, password, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {*} [options] Override http request option.
