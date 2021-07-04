@@ -76,8 +76,8 @@
           </b-row>
           <b-row class="mb-3">
             <b-col md="6" class="mb-3">
-              <b-input-group prepend="Adress">
-                <b-form-input v-model="selectedPilot.adress"></b-form-input>
+              <b-input-group prepend="Address">
+                <b-form-input v-model="selectedPilot.address"></b-form-input>
               </b-input-group>
             </b-col>
             <b-col md="6" class="mb-3">
@@ -315,6 +315,8 @@ export default Vue.extend({
       this.submitting = true;
       // Post pilot.
       this.EditPilot();
+      // Create pdf.
+      this.CreateApplicationFormAsync();
       this.submitting = false;
     },
 
@@ -333,7 +335,7 @@ export default Vue.extend({
           birthDate: this.selectedPilot.birthDate,
           mobilePhone: this.selectedPilot.mobilePhone,
           address: this.selectedPilot.address,
-          flyingSince: this.selectedPilot.flyingSince,
+          flyingSince: this.IsNullOrEmpty(this.selectedPilot?.flyingSince) ? null : this.selectedPilot.flyingSince,
           team: this.selectedPilot.team,
           nation: this.selectedPilot.nation,
           glider: this.selectedPilot.glider,
@@ -375,8 +377,39 @@ export default Vue.extend({
           solid: true,
           autoHideDelay: 5000
         })
+      }
+    },
 
-        return {} as BasicInfoDTO;
+    /**
+     * Create application form.
+     */
+    async CreateApplicationFormAsync() {
+      try {
+        const response = await this.pilotApi.apiPilotCreateApplicationFormAsyncPost(this.selectedPilot.id);
+
+        if (ServiceHelper.CheckResponseStatusCode(response.status)) {
+          const errTitle = "Application form generated.";
+          this.errorMessage = "Application form generation was successful. A pdf file has been sent to your email address.";
+          this.$bvToast.toast(this.errorMessage, {
+            title: errTitle,
+            variant: 'success',
+            solid: true,
+            autoHideDelay: 5000
+          })
+        } else {
+          const msg = `Failed response with status ${response.status}: ${response.data}.`;
+          throw new Error(msg);
+        }
+      } catch (error) {
+        const errTitle = "An error has occurred.";
+        const errorDetails = ServiceHelper.GetErrorMessageFromApiError(error);
+        this.errorMessage = errorDetails.Message || "Unexpected error occured.";
+        this.$bvToast.toast(this.errorMessage, {
+          title: errTitle,
+          variant: 'danger',
+          solid: true,
+          autoHideDelay: 5000
+        })
       }
     },
 
@@ -460,7 +493,7 @@ export default Vue.extend({
 
         // Filter event groups..
         if (ServiceHelper.CheckResponseStatusCode(response.status)) {
-          this.listOfAllPilots = response.data;
+          this.listOfAllPilots = response.data.sort((a, b) => ((a.name as string) < (b.name as string) ? -1 : 1));
         } else {
           const msg = `Failed response with status ${response.status}: ${response.data}.`;
           throw new Error(msg);
