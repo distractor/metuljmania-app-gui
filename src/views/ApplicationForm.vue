@@ -515,6 +515,7 @@ export default Vue.extend({
 
     onSelectedPilotChange() {
       this.selectedPilotBasicInfo = this.listOfAllPilots.find(eg => eg.id === this.selectedPilotBasicInfo.id) || {} as BasicInfoDTO;
+      this.selectedPilotAuthenticated = false;
     }
   }
 });

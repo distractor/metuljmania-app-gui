@@ -155,6 +155,18 @@ export interface PilotDTO {
     checkFile?: BasicInfoDTO;
     /**
      * 
+     * @type {BasicInfoDTO}
+     * @memberof PilotDTO
+     */
+    signedApplicationFile?: BasicInfoDTO;
+    /**
+     * 
+     * @type {BasicInfoDTO}
+     * @memberof PilotDTO
+     */
+    unSignedApplicationFile?: BasicInfoDTO;
+    /**
+     * 
      * @type {string}
      * @memberof PilotDTO
      */

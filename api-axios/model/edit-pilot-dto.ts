@@ -142,6 +142,18 @@ export interface EditPilotDTO {
     checkFileId?: number | null;
     /**
      * 
+     * @type {number}
+     * @memberof EditPilotDTO
+     */
+    signedApplicationFileId?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof EditPilotDTO
+     */
+    unSignedApplicationFileId?: number | null;
+    /**
+     * 
      * @type {string}
      * @memberof EditPilotDTO
      */
