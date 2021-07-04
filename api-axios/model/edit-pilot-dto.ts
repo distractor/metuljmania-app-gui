@@ -73,7 +73,7 @@ export interface EditPilotDTO {
      * @type {string}
      * @memberof EditPilotDTO
      */
-    adress?: string | null;
+    address?: string | null;
     /**
      * 
      * @type {number}
@@ -142,10 +142,10 @@ export interface EditPilotDTO {
     checkFileId?: number | null;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof EditPilotDTO
      */
-    sponsors?: Array<string> | null;
+    sponsors?: string | null;
     /**
      * 
      * @type {string}

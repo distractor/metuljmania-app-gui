@@ -75,6 +75,40 @@ export const PilotApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {number} [pilotId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotCreateApplicationFormAsyncPost: async (pilotId?: number, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Pilot/CreateApplicationFormAsync`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pilotId !== undefined) {
+                localVarQueryParameter['pilotId'] = pilotId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -205,6 +239,54 @@ export const PilotApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {number} [eventId] 
+         * @param {any} [fsdbFile] 
+         * @param {any} [csvFile] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotPostPilotsAsyncPost: async (eventId?: number, fsdbFile?: any, csvFile?: any, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/Pilot/PostPilotsAsync`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            if (eventId !== undefined) {
+                localVarQueryParameter['eventId'] = eventId;
+            }
+
+
+            if (fsdbFile !== undefined) { 
+                localVarFormParams.append('fsdbFile', fsdbFile as any);
+            }
+    
+            if (csvFile !== undefined) { 
+                localVarFormParams.append('csvFile', csvFile as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -224,6 +306,16 @@ export const PilotApiFp = function(configuration?: Configuration) {
          */
         async apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PilotDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotAuthenticatePilotGet(id, password, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} [pilotId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPilotCreateApplicationFormAsyncPost(pilotId?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotCreateApplicationFormAsyncPost(pilotId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -266,6 +358,18 @@ export const PilotApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotPost(newPilotDTO, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @param {number} [eventId] 
+         * @param {any} [fsdbFile] 
+         * @param {any} [csvFile] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPilotPostPilotsAsyncPost(eventId?: number, fsdbFile?: any, csvFile?: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiPilotPostPilotsAsyncPost(eventId, fsdbFile, csvFile, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -285,6 +389,15 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
          */
         apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any): AxiosPromise<PilotDTO> {
             return localVarFp.apiPilotAuthenticatePilotGet(id, password, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [pilotId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotCreateApplicationFormAsyncPost(pilotId?: number, options?: any): AxiosPromise<void> {
+            return localVarFp.apiPilotCreateApplicationFormAsyncPost(pilotId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -322,6 +435,17 @@ export const PilotApiFactory = function (configuration?: Configuration, basePath
         apiPilotPost(newPilotDTO?: NewPilotDTO, options?: any): AxiosPromise<PilotDTO> {
             return localVarFp.apiPilotPost(newPilotDTO, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {number} [eventId] 
+         * @param {any} [fsdbFile] 
+         * @param {any} [csvFile] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPilotPostPilotsAsyncPost(eventId?: number, fsdbFile?: any, csvFile?: any, options?: any): AxiosPromise<void> {
+            return localVarFp.apiPilotPostPilotsAsyncPost(eventId, fsdbFile, csvFile, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -342,6 +466,17 @@ export class PilotApi extends BaseAPI {
      */
     public apiPilotAuthenticatePilotGet(id?: number, password?: string, options?: any) {
         return PilotApiFp(this.configuration).apiPilotAuthenticatePilotGet(id, password, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [pilotId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PilotApi
+     */
+    public apiPilotCreateApplicationFormAsyncPost(pilotId?: number, options?: any) {
+        return PilotApiFp(this.configuration).apiPilotCreateApplicationFormAsyncPost(pilotId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -386,5 +521,18 @@ export class PilotApi extends BaseAPI {
      */
     public apiPilotPost(newPilotDTO?: NewPilotDTO, options?: any) {
         return PilotApiFp(this.configuration).apiPilotPost(newPilotDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [eventId] 
+     * @param {any} [fsdbFile] 
+     * @param {any} [csvFile] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PilotApi
+     */
+    public apiPilotPostPilotsAsyncPost(eventId?: number, fsdbFile?: any, csvFile?: any, options?: any) {
+        return PilotApiFp(this.configuration).apiPilotPostPilotsAsyncPost(eventId, fsdbFile, csvFile, options).then((request) => request(this.axios, this.basePath));
     }
 }

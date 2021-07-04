@@ -88,7 +88,7 @@ export const FileApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiFilePost(pilotId?: number, file?: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FileDTO>>> {
+        async apiFilePost(pilotId?: number, file?: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiFilePost(pilotId, file, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -109,7 +109,7 @@ export const FileApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiFilePost(pilotId?: number, file?: any, options?: any): AxiosPromise<Array<FileDTO>> {
+        apiFilePost(pilotId?: number, file?: any, options?: any): AxiosPromise<FileDTO> {
             return localVarFp.apiFilePost(pilotId, file, options).then((request) => request(axios, basePath));
         },
     };
