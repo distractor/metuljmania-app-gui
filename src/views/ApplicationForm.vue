@@ -14,12 +14,12 @@
               <b-col>
                 <b-form>
                   <label class="mr-sm-2" for="event-group-select">Pilot:</label>
-                  <b-form-select id="event-group-select" class="mb-2 mr-sm-2 mb-sm-0" :options="listOfAllPilots" v-model="selectedPilotBasicInfo.id" text-field="name" value-field="id" @change="onSelectedPilotChange" size="md"></b-form-select>
+                  <b-form-select id="event-group-select" class="mb-2 mr-sm-2 mb-sm-0" :options="listOfAllPilots" v-model="selectedPilotId" text-field="name" value-field="id" @change="onSelectedPilotChange" size="md"></b-form-select>
                 </b-form>
               </b-col>
               <b-col>
                 <b-form>
-                  <label class="mr-sm-2" for="inline-form-input-password">Password</label>
+                  <label class="mr-sm-2" for="inline-form-input-password">Password:</label>
                   <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
                     <b-form-input id="inline-form-input-password" v-model="password"></b-form-input>
                   </b-input-group>
@@ -28,7 +28,7 @@
             </b-row>
           </b-container>
           <div class="text">
-            <b-button variant="primary" @click="AuthenticatePilot(selectedPilotBasicInfo.id, password)">Get pilot details</b-button>
+            <b-button variant="primary" @click="AuthenticatePilot(selectedPilotBasicInfo.id, password)" :disabled="IsNullOrEmpty(selectedPilotBasicInfo.id)">Get pilot details</b-button>
           </div>
         </b-card>
 
@@ -244,6 +244,7 @@ export default Vue.extend({
       loadingPilotList: true,
       errorMessage: "",
       selectedPilot: {} as PilotDTO,
+      selectedPilotId: 0,
       selectedPilotBasicInfo: {} as BasicInfoDTO,
       selectedPilotAuthenticated: false,
       password: "",
@@ -514,7 +515,7 @@ export default Vue.extend({
     },
 
     onSelectedPilotChange() {
-      this.selectedPilotBasicInfo = this.listOfAllPilots.find(eg => eg.id === this.selectedPilotBasicInfo.id) || {} as BasicInfoDTO;
+      this.selectedPilotBasicInfo = this.listOfAllPilots.find(eg => eg.id === this.selectedPilotId) || {} as BasicInfoDTO;
       this.selectedPilotAuthenticated = false;
     }
   }
