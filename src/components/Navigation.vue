@@ -1,6 +1,6 @@
 <template>
   <b-navbar fluid class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" toggleable="md">
-    <b-navbar-brand href="/">Metuljmania application systems</b-navbar-brand>
+    <b-navbar-brand href="/">Metuljmania app</b-navbar-brand>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
