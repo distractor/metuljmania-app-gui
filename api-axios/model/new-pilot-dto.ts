@@ -67,7 +67,7 @@ export interface NewPilotDTO {
      * @type {string}
      * @memberof NewPilotDTO
      */
-    adress?: string | null;
+    address?: string | null;
     /**
      * 
      * @type {number}
@@ -118,10 +118,10 @@ export interface NewPilotDTO {
     policyNumber?: string | null;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof NewPilotDTO
      */
-    sponsors?: Array<string> | null;
+    sponsors?: string | null;
     /**
      * 
      * @type {string}

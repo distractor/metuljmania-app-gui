@@ -74,7 +74,7 @@ export interface PilotDTO {
      * @type {string}
      * @memberof PilotDTO
      */
-    adress?: string | null;
+    address?: string | null;
     /**
      * 
      * @type {number}
@@ -155,10 +155,22 @@ export interface PilotDTO {
     checkFile?: BasicInfoDTO;
     /**
      * 
-     * @type {Array<string>}
+     * @type {BasicInfoDTO}
      * @memberof PilotDTO
      */
-    sponsors?: Array<string> | null;
+    signedApplicationFile?: BasicInfoDTO;
+    /**
+     * 
+     * @type {BasicInfoDTO}
+     * @memberof PilotDTO
+     */
+    unSignedApplicationFile?: BasicInfoDTO;
+    /**
+     * 
+     * @type {string}
+     * @memberof PilotDTO
+     */
+    sponsors?: string | null;
     /**
      * 
      * @type {string}
