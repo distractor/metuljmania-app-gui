@@ -107,3 +107,18 @@ Documentation for typescript-axios generator: https://openapi-generator.tech/doc
   "vetur.experimental.templateInterpolationService": true,
   "editor.codeActionsOnSave": null
   ```
+# Deployment
+
+For deployment use docker. 
+
+First go to `root/` and run
+
+```sh
+docker build -t metuljmania/dockerfront .
+```
+
+after the image is build run docker image with
+
+```sh
+docker run -p 8080:80 metuljmania/dockerfront
+```
