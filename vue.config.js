@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath: '/metuljmania-app-gui/'
+    // publicPath: '/metuljmania-app-gui/'
+    publicPath: '/'
 }
