@@ -174,7 +174,7 @@
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadLicenceFile()">Upload</b-button>
                 </b-input-group-append>
               </b-input-group>
-              <div v-else>Licence already uploaded.</div>
+              <div v-else><i>Licence already uploaded.</i></div>
             </b-col>
           </b-row>
           <b-row>
@@ -185,7 +185,7 @@
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadIppiFile()">Upload</b-button>
                 </b-input-group-append>
               </b-input-group>
-              <div v-else>IPPI card already uploaded.</div>
+              <div v-else><i>IPPI card already uploaded.</i></div>
             </b-col>
           </b-row>
           <b-row>
@@ -196,7 +196,7 @@
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadCheckFile()">Upload</b-button>
                 </b-input-group-append>
               </b-input-group>
-              <div v-else>Glider check already uploaded.</div>
+              <div v-else><i>Glider check already uploaded.</i></div>
             </b-col>
           </b-row>
         </div>
@@ -312,12 +312,12 @@ export default Vue.extend({
     /**
      * Submit button click.
      */
-    SubmitButtonClick() {
+    async SubmitButtonClick() {
       this.submitting = true;
       // Post pilot.
-      this.EditPilot();
+      await this.EditPilot();
       // Create pdf.
-      this.CreateApplicationFormAsync();
+      await this.CreateApplicationFormAsync();
       this.submitting = false;
     },
 

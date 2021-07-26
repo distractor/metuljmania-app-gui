@@ -28,20 +28,18 @@
         <li>frontend is developed using Vue + Typescript with bootstrap-vue framework, sources available at <a href="https://github.com/distractor/metuljmania-application-gui">github repository <b-icon-github></b-icon-github></a>.</li>
       </ul>
       Feel free to further develop any of the projects.
+      <h2>Authors</h2>
       <div class="text">
-        <h2>Authors</h2>
-        <div class="text">
-          <ul>
-            <li>Mitja Jančič
-              <a href="mailto:mitjajancic@gmail.com">
-                <b-icon-envelope></b-icon-envelope>
-              </a>
-              <a href="https://github.com/distractor">
-                <b-icon-github></b-icon-github>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul>
+          <li>Mitja Jančič
+            <a href="mailto:mitjajancic@gmail.com">
+              <b-icon-envelope></b-icon-envelope>
+            </a>
+            <a href="https://github.com/distractor">
+              <b-icon-github></b-icon-github>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
