@@ -15,7 +15,7 @@
             Simply find your application form by clicking the button below.
           </div>
           <div class="text">
-            <b-button variant="primary" href="/application">Get my application</b-button>
+            <b-button variant="primary" href="/application">Register</b-button>
           </div>
         </li>
         <li>Find your name and type in the password that was sent to you by email to reveal personal information.</li>
@@ -26,7 +26,7 @@
             You can use your digital identity to sign it and upload it back using the button below.
           </div>
           <div class="text">
-            <b-button variant="primary" href="/upload">Upload application</b-button>
+            <b-button variant="primary" href="/upload">Upload form</b-button>
           </div>
         </li>
       </ol>

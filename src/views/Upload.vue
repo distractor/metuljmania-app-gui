@@ -28,7 +28,7 @@
             </b-row>
           </b-container>
           <div class="text">
-            <b-button variant="primary" @click="AuthenticatePilot(selectedPilotBasicInfo.id, password)">Open upload section</b-button>
+            <b-button variant="primary" @click="AuthenticatePilot(selectedPilotBasicInfo.id, password)" :disabled="IsNullOrEmpty(selectedPilotBasicInfo.id)">Open upload section</b-button>
           </div>
         </b-card>
 
