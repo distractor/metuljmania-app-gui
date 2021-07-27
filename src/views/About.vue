@@ -41,6 +41,13 @@
           </li>
         </ul>
       </div>
+      <h2>Thanks</h2>
+      <div class="text">
+        <ul>
+          <li>Tadej Krevh</li>
+          <li>Miha Mohorčič</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

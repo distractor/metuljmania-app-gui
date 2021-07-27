@@ -11,13 +11,13 @@
         <b-card bg-variant="light" title="Pilot selection">
           <b-container>
             <b-row>
-              <b-col>
+              <b-col md>
                 <b-form>
                   <label class="mr-sm-2" for="event-group-select">Pilot:</label>
                   <b-form-select id="event-group-select" class="mb-2 mr-sm-2 mb-sm-0" :options="listOfAllPilots" v-model="selectedPilotId" text-field="name" value-field="id" @change="onSelectedPilotChange" size="md"></b-form-select>
                 </b-form>
               </b-col>
-              <b-col>
+              <b-col md>
                 <b-form>
                   <label class="mr-sm-2" for="inline-form-input-password">Password:</label>
                   <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
@@ -247,20 +247,6 @@ export default Vue.extend({
         console.log(editPilot);
         console.log(this.selectedPilot);
         const response = await this.pilotApi.apiPilotIdPut(this.selectedPilot.id as number, editPilot);
-
-        if (ServiceHelper.CheckResponseStatusCode(response.status)) {
-          const errTitle = "Updating successful.";
-          this.errorMessage = "Pilot update was successful.";
-          this.$bvToast.toast(this.errorMessage, {
-            title: errTitle,
-            variant: 'success',
-            solid: true,
-            autoHideDelay: 5000
-          })
-        } else {
-          const msg = `Failed response with status ${response.status}: ${response.data}.`;
-          throw new Error(msg);
-        }
       } catch (error) {
         const errTitle = "An error has occurred.";
         const errorDetails = ServiceHelper.GetErrorMessageFromApiError(error);

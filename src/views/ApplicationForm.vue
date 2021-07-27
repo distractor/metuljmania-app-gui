@@ -11,13 +11,13 @@
         <b-card bg-variant="light" title="Pilot selection">
           <b-container>
             <b-row>
-              <b-col>
+              <b-col md>
                 <b-form>
                   <label class="mr-sm-2" for="event-group-select">Pilot:</label>
                   <b-form-select id="event-group-select" class="mb-2 mr-sm-2 mb-sm-0" :options="listOfAllPilots" v-model="selectedPilotId" text-field="name" value-field="id" @change="onSelectedPilotChange" size="md"></b-form-select>
                 </b-form>
               </b-col>
-              <b-col>
+              <b-col md>
                 <b-form>
                   <label class="mr-sm-2" for="inline-form-input-password">Password:</label>
                   <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
