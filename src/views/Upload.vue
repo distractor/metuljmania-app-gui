@@ -33,21 +33,22 @@
         </b-card>
 
         <div class="text" v-if="selectedPilotAuthenticated">
+          <div class="text" v-if="!IsNullOrEmpty(selectedPilot.signedApplicationFile)">
+            You have already uploaded your file, but if you wish to replace it, feel free to do so.
+          </div>
           <!-- Pilot Details. -->
           <h2>Upload signed application form</h2>
-          <b-row v-if="IsNullOrEmpty(selectedPilot.signedApplicationFile)">
+          <b-row>
             <b-col md="6" class="mb-3">
               <b-input-group>
                 <b-form-file v-model="file" placeholder="Choose file"></b-form-file>
                 <b-input-group-append>
-                  <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="OnFileUpload()">Upload</b-button>
+                  <b-button variant="primary" @click="OnFileUpload()" v-if='!uploading'>Upload</b-button>
+                  <b-button variant="primary" disabled='true' class="mb-2 mr-sm-2 mb-sm-0" v-if='uploading'><b-spinner small type="grow"></b-spinner> Uploading</b-button>
                 </b-input-group-append>
               </b-input-group>
             </b-col>
           </b-row>
-          <div class="text" v-else>
-            Nothing to do, you already uploaded. Thank you!
-          </div>
         </div>
       </div>
     </b-container>
@@ -66,6 +67,7 @@ export default Vue.extend({
     return {
       // Parameters & variables.
       loadingPilotList: true,
+      uploading: false,
       errorMessage: "",
       selectedPilot: {} as PilotDTO,
       selectedPilotId: 0,
@@ -76,6 +78,7 @@ export default Vue.extend({
       fileId: 0,
       checkedDataStatus: false,
       submitting: false,
+      confirmationBox: '',
 
       // APIs.
       pilotApi: {} as PilotApi,
@@ -97,6 +100,25 @@ export default Vue.extend({
 
   methods: {
     /**
+     * Show confirmation modal.
+     */
+    showConfirmationModal() {
+      this.confirmationBox = ''
+      this.$bvModal.msgBoxOk('Signed form submitted successfully. Thank you.', {
+        title: 'Confirmation',
+        size: 'md',
+        buttonSize: 'md',
+        okVariant: 'primary',
+        headerClass: 'p-2 border-bottom-1',
+        footerClass: 'p-2 border-top-1',
+        centered: true
+      })
+        .then(value => {
+          this.confirmationBox = value
+        })
+    },
+
+    /**
      * Is null or empty.
      */
     // eslint-disable-next-line
@@ -105,10 +127,12 @@ export default Vue.extend({
     },
 
     async OnFileUpload() {
+      this.uploading = true;
       // Upload file.
       await this.UploadFile(this.selectedPilot.id as number, this.file);
       // Update pilot.
       await this.UpdatePilot();
+      this.uploading = false;
     },
 
     /**
@@ -129,10 +153,8 @@ export default Vue.extend({
             solid: true,
             autoHideDelay: 5000
           })
-          console.log("Uploaded file details.");
-          
-          console.log(uploadedFile);
           this.fileId = uploadedFile.id != null ? uploadedFile.id : 0;
+          this.showConfirmationModal();
         } else {
           const msg = `Failed response with status ${response.status}: ${response.data}.`;
           throw new Error(msg);
@@ -244,8 +266,6 @@ export default Vue.extend({
           lastName: this.selectedPilot.lastName
         } as EditPilotDTO;
 
-        console.log(editPilot);
-        console.log(this.selectedPilot);
         const response = await this.pilotApi.apiPilotIdPut(this.selectedPilot.id as number, editPilot);
       } catch (error) {
         const errTitle = "An error has occurred.";

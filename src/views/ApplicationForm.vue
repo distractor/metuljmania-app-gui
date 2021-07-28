@@ -170,9 +170,9 @@
             <b-col md="6" class="mb-3">
               <b-input-group v-if="IsNullOrEmpty(selectedPilot.licenceFile)">
                 <b-form-file v-model="licenceFile" placeholder="Licence file"></b-form-file>
-                <b-input-group-append>
+                <!-- <b-input-group-append>
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadLicenceFile()">Upload</b-button>
-                </b-input-group-append>
+                </b-input-group-append> -->
               </b-input-group>
               <div v-else><i>Licence already uploaded.</i></div>
             </b-col>
@@ -181,9 +181,9 @@
             <b-col md="6" class="mb-3">
               <b-input-group v-if="IsNullOrEmpty(selectedPilot.ippifile)">
                 <b-form-file v-model="ippiFile" placeholder="IPPI file"></b-form-file>
-                <b-input-group-append>
+                <!-- <b-input-group-append>
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadIppiFile()">Upload</b-button>
-                </b-input-group-append>
+                </b-input-group-append> -->
               </b-input-group>
               <div v-else><i>IPPI card already uploaded.</i></div>
             </b-col>
@@ -192,9 +192,9 @@
             <b-col md="6" class="mb-3">
               <b-input-group v-if="IsNullOrEmpty(selectedPilot.checkFile)">
                 <b-form-file v-model="checkFile" placeholder="Glider check file"></b-form-file>
-                <b-input-group-append>
+                <!-- <b-input-group-append>
                   <b-button variant="primary" class="mb-2 mr-sm-2 mb-sm-0" @click="UploadCheckFile()">Upload</b-button>
-                </b-input-group-append>
+                </b-input-group-append> -->
               </b-input-group>
               <div v-else><i>Glider check already uploaded.</i></div>
             </b-col>
@@ -204,21 +204,21 @@
         <b-card bg-variant="light" title="Submit data" v-if="selectedPilotAuthenticated">
           <b-container>
             <b-card-text>
-              <b-form-checkbox v-model="checkedDataStatus" value="true" unchecked-value="false">
+              <b-form-checkbox v-model="checkedDataStatus">
                 I have checked all my data and corrected it where corrections were needed.
               </b-form-checkbox>
             </b-card-text>
           </b-container>
-          <div class="text">
-            <b-button variant="primary" :disabled="!checkedDataStatus" v-if="!submitting" @click="SubmitButtonClick()">Submit</b-button>
-            <b-button variant="primary" disabled="true" v-else>
-              <b-spinner small type="grow"></b-spinner>
-              Submitting...
-            </b-button>
-          </div>
           <b-container>
             <b-card-text>
-              After submission, a PDF file with your data will be generated and sent to your email adress. You can use your digital identity to sign it and upload it to the <a href="/upload">upload page</a> or simply make a physical copy and bring it to the registration.
+              <div>
+                After submission, registration form (PDF file) with your data will be generated and sent to your email address.
+              </div>
+              <b-button variant="primary" :disabled="!checkedDataStatus" v-if="!submitting" @click="SubmitButtonClick()">Submit</b-button>
+              <b-button variant="primary" disabled="true" v-else>
+                <b-spinner small type="grow"></b-spinner>
+                Submitting...
+              </b-button>
             </b-card-text>
           </b-container>
         </b-card>
@@ -235,7 +235,6 @@ import store from "@/store";
 import { FileApi, PilotApi } from "@/../api-axios/api";
 import ServiceHelper from "@/service/ServiceHelper";
 import { BasicInfoDTO, EditPilotDTO, PilotDTO } from "api-axios/model";
-// import ServiceHelper from '@/helpers/ServiceHelper';
 
 export default Vue.extend({
   data() {
@@ -253,6 +252,7 @@ export default Vue.extend({
       checkFile: null,
       checkedDataStatus: false,
       submitting: false,
+      confirmationBox: '',
 
       // APIs.
       pilotApi: {} as PilotApi,
@@ -273,6 +273,25 @@ export default Vue.extend({
   },
 
   methods: {
+    /**
+     * Show confirmation modal.
+     */
+    showConfirmationModal() {
+      this.confirmationBox = ''
+      this.$bvModal.msgBoxOk('Data was submitted successfully. Please check your email (also check your spam).', {
+        title: 'Confirmation',
+        size: 'md',
+        buttonSize: 'md',
+        okVariant: 'primary',
+        headerClass: 'p-2 border-bottom-1',
+        footerClass: 'p-2 border-top-1',
+        centered: true
+      })
+        .then(value => {
+          this.confirmationBox = value
+        })
+    },
+
     /**
      * Is null or empty.
      */
@@ -314,10 +333,24 @@ export default Vue.extend({
      */
     async SubmitButtonClick() {
       this.submitting = true;
+
+      // Upload files.
+      if (this.licenceFile != null) {
+        await this.UploadLicenceFile();
+      }
+      if (this.ippiFile != null) {
+        await this.UploadIppiFile();
+      }
+      if (this.checkFile != null) {
+        await this.UploadCheckFile();
+      }
+
       // Post pilot.
       await this.EditPilot();
+
       // Create pdf.
       await this.CreateApplicationFormAsync();
+
       this.submitting = false;
     },
 
@@ -397,6 +430,9 @@ export default Vue.extend({
             solid: true,
             autoHideDelay: 5000
           })
+
+          // Show modal.
+          this.showConfirmationModal();
         } else {
           const msg = `Failed response with status ${response.status}: ${response.data}.`;
           throw new Error(msg);
@@ -500,7 +536,6 @@ export default Vue.extend({
           throw new Error(msg);
         }
       } catch (error) {
-        console.log(error);
         this.loadingPilotList = false;
         const errTitle = "An error has occurred while loading all pilots.";
         const errorDetails = ServiceHelper.GetErrorMessageFromApiError(error);
