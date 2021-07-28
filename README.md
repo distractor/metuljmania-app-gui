@@ -120,5 +120,5 @@ docker build -t metuljmania/dockerfront .
 after the image is build run docker image with
 
 ```sh
-docker run -p 8080:80 metuljmania/dockerfront
+docker run --name frontend -p 8080:80 metuljmania/dockerfront
 ```
